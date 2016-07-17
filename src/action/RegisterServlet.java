@@ -5,6 +5,7 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Writer;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -41,7 +42,7 @@ public Connection setup(){
 		//prop.load(new FileReader("datasource.properties"));
 	Class.forName("oracle.jdbc.OracleDriver");
 	
-	con= DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","rodney","multivision");
+	con= DriverManager.getConnection("jdbc:oracle:thin:@regdbinstance.c0wjxtjkk2wt.us-east-1.rds.amazonaws.com:1521:ORCL","rodney","multivision");
 }
 
 catch(ClassNotFoundException cnf)
@@ -77,7 +78,7 @@ public void textFile(){
 	Statement stmt1;
 	try{
 		stmt1=con.createStatement();
-		ResultSet rs2=stmt1.executeQuery("select ID from  adminreport2");
+		ResultSet rs2=stmt1.executeQuery("select ID from  RODNEY.\"adminreport2\"");
 		rs2.next();
 		
 		
@@ -143,7 +144,7 @@ public void insertStudent(int id,String fname, String lname, String addr1, Strin
 		//prop.load(new FileReader("datasource.properties"));
 	Class.forName("oracle.jdbc.OracleDriver");
 	
-	con= DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","rodney","multivision");
+	con= DriverManager.getConnection("jdbc:oracle:thin:@regdbinstance.c0wjxtjkk2wt.us-east-1.rds.amazonaws.com:1521:ORCL","rodney","multivision");
 }
 
 catch(ClassNotFoundException cnf)
@@ -162,7 +163,7 @@ try{
 		//stmt.executeUpdate("insert into ADMINREPORT2(ID,FISTNAME,LASTNAME,ADDRESS1,ADDRESS2,CITY,STATE,ZIP,COUNTRY,TIME) values("+id+",'"+fname+"','"+
 	//lname+"','"+addr1+"','"+addr2+"','"+city+"','"+state+"','"+zip+"','"+country+"','"+date+"')");
 		//System.out.println("('"+id+"','"+t_id+"','"+day+"','"+type +"','"+amount +"')");
-		stmt.executeUpdate("insert into ADMINREPORT2 values("+id+",'"+fname+"','"+
+		stmt.executeUpdate("insert into Rodney.\"adminreport2\" values("+id+",'"+fname+"','"+
 	lname+"','"+addr1+"','"+addr2+"','"+city+"','"+state+"','"+zip+"','"+country+"','"+date+"')");
 		
 	} catch (SQLException e) {
@@ -184,7 +185,7 @@ public void updateQuery(){
 Statement stmt1;
 	try{
 		stmt1=con.createStatement();
-		ResultSet rs2=stmt1.executeQuery("SELECT * FROM ADMINREPORT2 ");
+		ResultSet rs2=stmt1.executeQuery("SELECT * FROM RODNEY.\"adminreport2\" ");
 		while(rs2.next()){
 			
 			Globals.listCust.add(rs2.getString(1)+" "+rs2.getString(2)+" "+rs2.getString(3)+" "+rs2.getString(4)+" "+rs2.getString(5)+" "+rs2.getString(6)+" "+rs2.getString(7)+" "+rs2.getString(8)+" "+rs2.getString(9)+" "+rs2.getString(10));
@@ -238,6 +239,12 @@ protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 	System.out.println(fname+" "+lname+" "+addr1+" "+addr2+" "+city+" "+state+" "+zip+" "+country+" "+datestr);
 	
 	instance.insertStudent(instance.cust_id,fname,lname,addr1,addr2,city,state,zip,country,datestr);
+
+	/*BufferedWriter output;
+	output = new BufferedWriter(new FileWriter("C:/Users/User/workspace3/BankWebsite/adminReport.txt", true));  //clears file every time
+	output.append(fname);
+	output.newLine();
+	output.close();*/
 	
 	RequestDispatcher rd;
 	rd=req.getRequestDispatcher("Success.jsp");

@@ -16,9 +16,9 @@ Welcome to the bank site
 </body>
 <%
 						
-						RegisterServlet instance= new RegisterServlet();
+						 RegisterServlet instance= new RegisterServlet();
 						instance.setup();
-						instance.updateQuery();
+						instance.updateQuery(); 
 					
 					%>
 <form action="home" method="post">
