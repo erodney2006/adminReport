@@ -74,8 +74,10 @@ public void destroyConnection(){
 public void textFile(){
 	BufferedReader br=null;
 
+	Statement stmt1;
 	try{
-		ResultSet rs2=stmt.executeQuery("select ID from  adminreport2");
+		stmt1=con.createStatement();
+		ResultSet rs2=stmt1.executeQuery("select ID from  adminreport2");
 		rs2.next();
 		
 		
@@ -104,8 +106,10 @@ public void textFile(){
 public void updateTransactionFile(){
 	BufferedReader br=null;
 
+	Statement stmt1;
 	try{
-		ResultSet rs2=stmt.executeQuery("select trans_ID from  adminreport2 ");
+		stmt1=con.createStatement();
+		ResultSet rs2=stmt1.executeQuery("select trans_ID from  adminreport2 ");
 		rs2.next();
 		
 		
@@ -228,7 +232,7 @@ protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 	instance=new RegisterServlet();
 	instance.setup();
 	instance.textFile();
-	instance.updateTransactionFile();
+	
 	instance.updateQuery();
 	
 	System.out.println(fname+" "+lname+" "+addr1+" "+addr2+" "+city+" "+state+" "+zip+" "+country+" "+datestr);
