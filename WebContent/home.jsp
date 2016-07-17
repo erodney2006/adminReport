@@ -6,6 +6,8 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
+<link rel="stylesheet" href="normalize.css">
+	<link rel="stylesheet" href="style.css">
 </head>
 <body>
 Welcome to the bank site
